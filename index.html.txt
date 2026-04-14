@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Semaphore Trainer PRO</title>
+<style>
+  body {
+    font-family: Arial;
+    text-align: center;
+    background: #f5f5f5;
+  }
+  .card {
+    width: 300px;
+    height: 300px;
+    margin: 20px auto;
+    overflow: hidden;
+    border-radius: 10px;
+    background: white;
+  }
+  img {
+    position: relative;
+  }
+  input, button {
+    padding: 10px;
+    margin: 5px;
+  }
+</style>
+</head>
+<body>
+
+<h2>Semaphore Trainer PRO</h2>
+
+<div class="card">
+  <img id="img" src="semaphore.png">
+</div>
+
+<input id="answer" placeholder="Nhập chữ...">
+<br>
+<button onclick="check()">Check</button>
+<button onclick="next()">Next</button>
+
+<p id="result"></p>
+<p id="score">Score: 0 / 0</p>
+
+<script>
+const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+
+let current = 0;
+let score = 0;
+let total = 0;
+
+const cols = 6;
+const rows = 5;
+
+function next() {
+  current = Math.floor(Math.random() * 26);
+  document.getElementById("answer").value = "";
+  document.getElementById("result").innerText = "";
+
+  const col = current % cols;
+  const row = Math.floor(current / cols);
+
+  const img = document.getElementById("img");
+  img.style.width = "600px";
+  img.style.height = "800px";
+  img.style.left = -(col * 100) + "px";
+  img.style.top = -(row * 160) + "px";
+}
+
+function check() {
+  const input = document.getElementById("answer").value.toUpperCase();
+  total++;
+
+  if (input === letters[current]) {
+    score++;
+    document.getElementById("result").innerText = "✅ Đúng!";
+  } else {
+    document.getElementById("result").innerText = "❌ Sai! Đáp án: " + letters[current];
+  }
+
+  document.getElementById("score").innerText = `Score: ${score} / ${total}`;
+}
+
+next();
+</script>
+
+</body>
+</html>
